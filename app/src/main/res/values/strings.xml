@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Hw_54</string>
+    <string name="id">id</string>
+    <string name="employee_or_department_name">employee or department name</string>
+    <string name="employee_s_salary">employee\'s salary</string>
+    <string name="department_id">department id</string>
+    <string name="insert">insert</string>
+    <string name="delete">delete</string>
 </resources>
