@@ -3,6 +3,7 @@ package com.example.hw_54
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.hw_54.databinding.ActivityMainBinding
+import com.example.hw_54.models.Department
 import com.example.hw_54.models.Employee
 import com.example.hw_54.storage.EmployeeDepartmentDatabase
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,8 +22,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        insertEmployee()
-//        deleteEmployee()
+//        insertEmployee()
+        insertDepartment()
     }
 
     private fun getEmployeeFromInput(): Employee {
@@ -44,10 +45,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun deleteEmployee() {
-        binding.btnDelete.setOnClickListener {
-            db.employeeDao()
-                .delete(getEmployeeFromInput())
+    private fun getDepartmentFromInput(): Department {
+        val departmentId = binding.etId.text?.toString().takeIf { !it.isNullOrEmpty() }?.toLong()
+        val departmentName = binding.etName.text.toString()
+
+        return Department(id = departmentId, name = departmentName)
+    }
+
+
+
+    private fun insertDepartment() {
+        binding.btnInsert.setOnClickListener {
+            db.departmentDao()
+                .insert(getDepartmentFromInput())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()

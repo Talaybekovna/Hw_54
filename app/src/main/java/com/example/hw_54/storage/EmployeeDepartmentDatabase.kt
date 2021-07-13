@@ -15,6 +15,7 @@ import com.example.hw_54.models.Department
 abstract class EmployeeDepartmentDatabase: RoomDatabase() {
 
     abstract fun employeeDao(): EmployeeDao
+    abstract fun departmentDao(): DepartmentDao
 
     companion object {
         private const val DB_NAME = "employee_department_db"
