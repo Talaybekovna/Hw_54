@@ -1,7 +1,9 @@
 package com.example.hw_54
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.hw_54.databinding.ActivityMainBinding
 import com.example.hw_54.models.Department
 import com.example.hw_54.models.Employee
@@ -23,7 +25,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        insertEmployee()
-        insertDepartment()
+//        insertDepartment()
+        getEmployeeWithDepartment()
     }
 
     private fun getEmployeeFromInput(): Employee {
@@ -43,6 +46,19 @@ class MainActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun getEmployeeWithDepartment() {
+        db.employeeDao()
+            .getEmployeesWithDepartments()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("Employee","Employees: $it")
+            },{
+
+            })
     }
 
     private fun getDepartmentFromInput(): Department {
