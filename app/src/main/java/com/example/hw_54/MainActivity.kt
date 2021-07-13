@@ -24,9 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        insertEmployee()
-//        insertDepartment()
-        getEmployeeWithDepartment()
+        getDepartmentWithEmployees()
     }
 
     private fun getEmployeeFromInput(): Employee {
@@ -55,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.i("Employee","Employees: $it")
+                Log.i(TAG_Employee,"Employees: $it")
             },{
 
             })
@@ -79,4 +77,23 @@ class MainActivity : AppCompatActivity() {
                 .subscribe()
         }
     }
+
+    @SuppressLint("CheckResult")
+    private fun getDepartmentWithEmployees() {
+        db.departmentDao()
+            .getDepartmentsWithEmployees()
+            .subscribeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i(TAG_Department,"Departments: $it")
+            },{
+
+            })
+    }
+
+    companion object {
+        const val TAG_Employee = "Employee"
+        const val TAG_Department = "Department"
+    }
+
 }
